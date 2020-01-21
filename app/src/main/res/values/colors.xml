@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0e5e55</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFF</color>
+    <color name="colorLight">#7eb0ad</color>
+    <color name="colorExtraLight">#16cc3e</color>
+    <color name="colorButton">#19887a</color>
+    <color name="messageYours">#e2ffc7</color>
+    <color name="messageTheirs">#fff</color>
+    <color name="iconInactive">#88898b</color>
+    <color name="wallpaper">#e0e0e0</color>
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"  xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miVideo"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        app:showAsAction="ifRoom"
+        app:iconTint="@color/white"
+
+        android:title="Video">
+    </item>
+    <item
+        android:id="@+id/miPhone"
+        android:icon="@drawable/ic_phone_black_24dp"
+        app:showAsAction="ifRoom"
+        app:iconTint="@color/white"
+
+        android:title="Phone">
+    </item>
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:iconTint="@color/white"
+        app:showAsAction="never"
+        android:title="Compose">
+    </item>
+</menu>
