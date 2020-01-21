@@ -20,5 +20,12 @@
         android:id="@+id/channelFragment"
         android:name="com.example.whatsappclone.ui.channel.ChannelFragment"
         android:label="fragment_channel"
-        tools:layout="@layout/fragment_channel" />
+        tools:layout="@layout/fragment_channel" >
+        <argument
+            android:name="channel_type"
+            app:argType="string" />
+        <argument
+            android:name="channel_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

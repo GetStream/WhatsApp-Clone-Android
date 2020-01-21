@@ -16,7 +16,9 @@ import com.example.whatsappclone.BuildConfig
 
 import com.example.whatsappclone.R
 import com.example.whatsappclone.databinding.FragmentChannelListBinding
+import com.example.whatsappclone.ui.channel.ChannelFragmentArgs
 import com.example.whatsappclone.ui.home.HomeFragment
+import com.example.whatsappclone.ui.home.HomeFragmentDirections
 import com.getstream.sdk.chat.StreamChat
 import com.getstream.sdk.chat.adapter.ChannelListItemAdapter
 import com.getstream.sdk.chat.enums.Filters
@@ -32,7 +34,6 @@ class ChannelListFragment : Fragment(), ClientConnectionCallback {
 
     val TAG = ChannelListFragment::class.java.simpleName
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +44,7 @@ class ChannelListFragment : Fragment(), ClientConnectionCallback {
             .loggingLevel(if (BuildConfig.DEBUG) StreamLoggerLevel.ALL else StreamLoggerLevel.NOTHING)
             .build()
 
+        // TODO: this code should be moved to a differnet lifecycle
         val configuration = StreamChat.Config(getActivity()!!.getApplicationContext(), "s2dxdhpxd94g")
         configuration.setLogger(logger)
         StreamChat.init(configuration)
@@ -80,15 +82,8 @@ class ChannelListFragment : Fragment(), ClientConnectionCallback {
         // click handlers for clicking a user avatar or channel
         binding.channelList.setOnChannelClickListener({ channel ->
 
-            // TODO: perhaps use safe args?
-
-            val bundle = Bundle()
-            bundle.putSerializable("channel_type", channel.type)
-            bundle.putSerializable("channel_id", channel.id)
-
             findNavController().navigate(
-                R.id.action_homeFragment_to_channelFragment,
-                bundle
+                HomeFragmentDirections.actionHomeFragmentToChannelFragment(channel.type, channel.id)
             )
 
         })

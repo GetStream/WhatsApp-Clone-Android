@@ -3,6 +3,7 @@ package com.example.whatsappclone.ui.channel
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 import com.example.whatsappclone.R
 import com.example.whatsappclone.databinding.FragmentChannelBinding
@@ -24,24 +26,21 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModel
 import com.getstream.sdk.chat.viewmodel.ChannelViewModelFactory
 
 
-class ChannelFragment : Fragment() {
+class ChannelFragment : Fragment(R.layout.fragment_channel) {
 
     private var viewModel: ChannelViewModel? = null
     private var binding: FragmentChannelBinding? = null
+
+    private val args: ChannelFragmentArgs by navArgs()
+
+
+    val TAG = ChannelFragment::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val layout = inflater.inflate(R.layout.fragment_channel, container, false)
-        return layout
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_channel, menu)
@@ -50,9 +49,11 @@ class ChannelFragment : Fragment() {
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.getItemId() === android.R.id.home) {
-            findNavController().popBackStack()
+            Log.i(TAG, "Trying to press that freakign back button")
+            findNavController().popBackStack(R.id.homeFragment, false)
+            return true
         }
-        return super.onOptionsItemSelected(menuItem)
+        return false
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,9 +63,7 @@ class ChannelFragment : Fragment() {
         val client = StreamChat.getInstance((activity as AppCompatActivity).application)
         val view = view
 
-        // TODO: this should be handled by the viewmodel ideally
-        val channelType = arguments!!.get("channel_type") as String
-        val channelID = arguments!!.get("channel_id") as String
+
 
         // we're using data binding in this example
         binding = DataBindingUtil.setContentView(activity, R.layout.fragment_channel)
@@ -77,7 +76,9 @@ class ChannelFragment : Fragment() {
         activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
         activity.supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        var channel = client.channel(channelType, channelID)
+        // TODO: storing channel type and channel id should be handled by the viewmodel probably
+
+        var channel = client.channel(args.channelType, args.channelId)
         viewModel = ViewModelProviders.of(
             this,
             ChannelViewModelFactory(activity.application, channel)

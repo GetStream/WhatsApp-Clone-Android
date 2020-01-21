@@ -14,21 +14,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 // TODO: Use a viewmodel
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val layout =  inflater.inflate(R.layout.fragment_home, container, false)
-        return layout
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
