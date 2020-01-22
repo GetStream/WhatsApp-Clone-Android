@@ -89,12 +89,16 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
         // TODO: Remove ugly !!
         binding!!.viewModel = viewModel
         binding!!.messageList.setViewModel(viewModel!!, this)
+        binding!!.messageInputView.setViewModel(viewModel!!, this)
 
         val messageList : MessageListView = view!!.findViewById(R.id.messageList)
 
         val otherUsers: List<User> = channel.channelState.otherUsers
         binding!!.avatarGroup.setChannelAndLastActiveUsers(channel, otherUsers, messageList.style)
         binding!!.channelName.text = channel.name
+
+
+
     }
 
 
