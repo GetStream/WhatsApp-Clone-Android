@@ -71,7 +71,7 @@ class ChannelListFragment : Fragment(), ClientConnectionCallback {
         val viewModel = ViewModelProviders.of(this).get(ChannelListViewModel::class.java)
         binding.viewModel = viewModel
         val  adapter =  ChannelListItemAdapter(activity)
-       // adapter.setViewHolderFactory(CustomViewHolderFactory());
+        adapter.setViewHolderFactory(CustomViewHolderFactory())
         binding.channelList.setViewModel(viewModel, this, adapter)
 
         // query all channels of type messaging
