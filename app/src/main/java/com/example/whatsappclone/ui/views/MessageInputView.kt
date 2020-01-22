@@ -4,9 +4,11 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.example.whatsappclone.databinding.ViewMessageInputBinding
 import com.getstream.sdk.chat.interfaces.MessageSendListener
 import com.getstream.sdk.chat.rest.Message
@@ -54,6 +56,21 @@ class MessageInputView: ConstraintLayout, MessageSendListener
         val inflater = LayoutInflater.from(context)
         binding = ViewMessageInputBinding.inflate(inflater, this, true)
 
+
+    }
+
+    fun getMessageText(): String? {
+        return binding!!.messageInput.text.toString()
+    }
+
+    fun setViewModel(
+        vmodel: ChannelViewModel,
+        lifecycleOwner: LifecycleOwner?
+    ) {
+        viewModel = vmodel
+        binding!!.lifecycleOwner = lifecycleOwner
+        binding!!.viewModel = viewModel
+
         // implement message sending
         binding!!.voiceRecordingOrSend.setOnClickListener({
             var message : Message = Message()
@@ -61,6 +78,7 @@ class MessageInputView: ConstraintLayout, MessageSendListener
             viewModel!!.sendMessage(message, object: MessageCallback {
                 override fun onSuccess(response: MessageResponse?) {
                     // hi
+                    viewModel!!.messageInputText.value = ""
                 }
 
                 override fun onError(errMsg: String?, errCode: Int) {
@@ -70,7 +88,11 @@ class MessageInputView: ConstraintLayout, MessageSendListener
             })
         })
 
-        binding!!.messageInputText
+
+        viewModel!!.messageInputText.observe(lifecycleOwner!!, Observer { text ->
+            Log.i(TAG, "MessageInputText changed" + text)
+        })
+
 
         // listen to typing events and connect to the view model
         binding!!.messageInput.addTextChangedListener(object : TextWatcher {
@@ -87,18 +109,6 @@ class MessageInputView: ConstraintLayout, MessageSendListener
                                        before: Int, count: Int) {
             }
         })
-    }
-
-    fun getMessageText(): String? {
-        return binding!!.messageInput.text.toString()
-    }
-
-    fun setViewModel(
-        vmodel: ChannelViewModel,
-        lifecycleOwner: LifecycleOwner?
-    ) {
-        viewModel = vmodel
-        binding!!.lifecycleOwner = lifecycleOwner
     }
 
 

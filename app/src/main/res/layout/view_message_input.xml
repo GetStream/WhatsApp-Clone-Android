@@ -5,13 +5,11 @@
 
     <data>
 
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.getstream.sdk.chat.viewmodel.ChannelViewModel" />
-
-        <variable
-            name="messageInputText"
-            type="String" />
 
     </data>
 
@@ -49,7 +47,7 @@
             android:layout_marginStart="12dp"
             android:background="@android:color/transparent"
             android:hint="Type a message"
-            android:text="@={messageInputText}"
+            android:text="@={viewModel.messageInputText}"
             app:layout_constraintLeft_toRightOf="@+id/addEmoticon"
             app:layout_constraintRight_toLeftOf="@+id/addAttachment" />
 
@@ -71,6 +69,7 @@
             android:background="@null"
             android:tint="@color/iconInactive"
             android:src="@drawable/ic_camera_alt_black_24dp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.messageInputText) ? View.VISIBLE : View.GONE}"
             app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -88,7 +87,9 @@
         app:layout_constraintStart_toEndOf="@+id/messageInputContainer"
         app:tint="@color/white"
 
-        app:srcCompat="@drawable/ic_mic_black_24dp"/>
+        android:src="@{TextUtils.isEmpty(viewModel.messageInputText) ? @drawable/ic_mic_black_24dp : @drawable/ic_send_black_24dp}"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
