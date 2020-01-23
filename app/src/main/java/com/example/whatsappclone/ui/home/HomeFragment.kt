@@ -16,7 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 private const val EMPTY_TITLE = "empty_title"
-private val TAB_TITLES = mapOf(0 to "", 1 to "chats", 2 to "status", 3 to "calls")
+private val TAB_TITLES = mapOf( 1 to "chats", 2 to "status", 3 to "calls")
 
 
 class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
@@ -24,12 +24,14 @@ class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 4
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment = EmptyFragment()
-        fragment.arguments = Bundle().apply {
-            putInt(EMPTY_TITLE, position + 1)
-        }
+        val fragment: Fragment
         if (position == 1) {
             fragment = ChannelListFragment()
+        } else {
+            fragment = EmptyFragment()
+            fragment.arguments = Bundle().apply {
+                putInt(EMPTY_TITLE, position + 1)
+            }
         }
         return fragment
     }
@@ -41,7 +43,7 @@ class EmptyFragment : Fragment(R.layout.fragment_empty) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(EMPTY_TITLE) }?.apply {
             val textView: TextView = view.findViewById(R.id.text1)
-            textView.text = TAB_TITLES[getInt(EMPTY_TITLE)]
+            textView.text = TAB_TITLES.getOrDefault(getInt(EMPTY_TITLE)-1, "camera")
         }
     }
 }
@@ -64,17 +66,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val activity : AppCompatActivity = activity as AppCompatActivity
         val view = view
-
+        
         val toolbar: Toolbar = view!!.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
-
 
         val tabLayout : TabLayout = view.findViewById(R.id.tabs)
         val chatTab: TabLayout.Tab = tabLayout.getTabAt(2)!!
         viewPager = view.findViewById(R.id.view_pager)
         viewPager.adapter = TabsAdapter(this)
 
-
+        // connect the tabs and view pager2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = TAB_TITLES[position]
             if (position == 0) {
@@ -85,6 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         tabLayout.selectTab(chatTab)
 
+        // handle tint for the camera icon
         val colors = resources.getColorStateList(R.color.tab_icon, activity!!.theme)
 
         for (i in 0 until tabLayout.tabCount) {

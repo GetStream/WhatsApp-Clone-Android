@@ -1,27 +1,21 @@
 package com.example.whatsappclone.ui.channel
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import androidx.fragment.app.Fragment
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-
 import com.example.whatsappclone.R
 import com.example.whatsappclone.databinding.FragmentChannelBinding
 import com.getstream.sdk.chat.StreamChat
 import com.getstream.sdk.chat.rest.User
-import com.getstream.sdk.chat.view.AvatarGroupView
 import com.getstream.sdk.chat.view.MessageListView
-import com.getstream.sdk.chat.view.MessageListViewStyle
 import com.getstream.sdk.chat.viewmodel.ChannelViewModel
 import com.getstream.sdk.chat.viewmodel.ChannelViewModelFactory
 
@@ -32,7 +26,6 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
     private var binding: FragmentChannelBinding? = null
 
     private val args: ChannelFragmentArgs by navArgs()
-
 
     val TAG = ChannelFragment::class.java.simpleName
 
@@ -48,7 +41,7 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.getItemId() === android.R.id.home) {
+        if (menuItem.itemId === android.R.id.home) {
             Log.i(TAG, "Trying to press that freakign back button")
             findNavController().popBackStack(R.id.homeFragment, false)
             return true

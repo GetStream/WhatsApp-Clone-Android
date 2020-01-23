@@ -28,9 +28,7 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModel
  *
  * When the user typed some text we change the microphone icon into a send button and hide the video button.
  */
-
-
-class MessageInputView: ConstraintLayout, MessageSendListener
+class MessageInputView: ConstraintLayout
 {
     val TAG =
         MessageInputView::class.java.simpleName
@@ -55,8 +53,6 @@ class MessageInputView: ConstraintLayout, MessageSendListener
     fun init(context: Context) {
         val inflater = LayoutInflater.from(context)
         binding = ViewMessageInputBinding.inflate(inflater, this, true)
-
-
     }
 
     fun getMessageText(): String? {
@@ -72,7 +68,7 @@ class MessageInputView: ConstraintLayout, MessageSendListener
         binding!!.viewModel = viewModel
 
         // implement message sending
-        binding!!.voiceRecordingOrSend.setOnClickListener({
+        binding!!.voiceRecordingOrSend.setOnClickListener {
             var message : Message = Message()
             message.text = getMessageText()
             viewModel!!.sendMessage(message, object: MessageCallback {
@@ -82,17 +78,10 @@ class MessageInputView: ConstraintLayout, MessageSendListener
                 }
 
                 override fun onError(errMsg: String?, errCode: Int) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
             })
-        })
-
-
-        viewModel!!.messageInputText.observe(lifecycleOwner!!, Observer { text ->
-            Log.i(TAG, "MessageInputText changed" + text)
-        })
-
+        }
 
         // listen to typing events and connect to the view model
         binding!!.messageInput.addTextChangedListener(object : TextWatcher {
@@ -111,12 +100,4 @@ class MessageInputView: ConstraintLayout, MessageSendListener
         })
     }
 
-
-    override fun onSendMessageError(errMsg: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onSendMessageSuccess(message: Message?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
