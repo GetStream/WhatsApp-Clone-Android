@@ -108,42 +108,4 @@ class ChannelListFragment : Fragment(), ClientConnectionCallback {
     }
 }
 
-class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 4
-
-    override fun createFragment(position: Int): Fragment {
-        // Return a NEW fragment instance in createFragment(int)
-        var fragment: Fragment = EmptyFragment()
-        fragment.arguments = Bundle().apply {
-            // Our object is just an integer :-P
-            putInt(ARG_OBJECT, position + 1)
-        }
-        if (position == 1) {
-            fragment = ChannelListFragment()
-        }
-        return fragment
-    }
-}
-
-private const val ARG_OBJECT = "object"
-
-// Instances of this class are fragments representing a single
-// object in our collection.
-class EmptyFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_empty, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            val textView: TextView = view.findViewById(R.id.text1)
-            textView.text = getInt(ARG_OBJECT).toString()
-        }
-    }
-}

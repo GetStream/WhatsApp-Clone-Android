@@ -24,10 +24,10 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         app:tabBackground="@color/colorPrimary"
-        app:tabTextColor="@color/colorLight"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/white"
-        app:tabIconTint="@color/colorLight"
+        app:tabTextColor="@color/tab_inactive"
+        app:tabSelectedTextColor="@color/tab_active"
+        app:tabIndicatorColor="@color/tab_active"
+        app:tabIconTint="@color/tab_inactive"
 
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
 
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:backgroundTint="@color/colorExtraLight"
+        app:backgroundTint="@color/floating_message_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:tint="@color/white"

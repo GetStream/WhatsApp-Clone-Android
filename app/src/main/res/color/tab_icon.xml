@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/white"
+    <item android:color="@color/tab_active"
         android:state_selected="true" />
 
-    <item android:color="@color/colorLight" />
+    <item android:color="@color/tab_inactive" />
 </selector>
