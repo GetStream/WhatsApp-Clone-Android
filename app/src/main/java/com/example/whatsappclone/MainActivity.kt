@@ -11,7 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    private val navController by lazy { findNavController(R.id.navHostFragment) } //1
+    //TODO private val navController by lazy { findNavController(R.id.navHostFragment) } //1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

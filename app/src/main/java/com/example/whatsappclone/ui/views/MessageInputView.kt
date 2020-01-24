@@ -30,13 +30,6 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModel
  */
 class MessageInputView: ConstraintLayout
 {
-    val TAG =
-        MessageInputView::class.java.simpleName
-
-    private var binding: ViewMessageInputBinding? = null
-
-    protected var viewModel: ChannelViewModel? = null
-
 
     constructor(context: Context) : super(context){
         init(context)
@@ -51,53 +44,8 @@ class MessageInputView: ConstraintLayout
     }
 
     fun init(context: Context) {
-        val inflater = LayoutInflater.from(context)
-        binding = ViewMessageInputBinding.inflate(inflater, this, true)
+
     }
-
-    fun getMessageText(): String? {
-        return binding!!.messageInput.text.toString()
-    }
-
-    fun setViewModel(
-        vmodel: ChannelViewModel,
-        lifecycleOwner: LifecycleOwner?
-    ) {
-        viewModel = vmodel
-        binding!!.lifecycleOwner = lifecycleOwner
-        binding!!.viewModel = viewModel
-
-        // implement message sending
-        binding!!.voiceRecordingOrSend.setOnClickListener {
-            var message : Message = Message()
-            message.text = getMessageText()
-            viewModel!!.sendMessage(message, object: MessageCallback {
-                override fun onSuccess(response: MessageResponse?) {
-                    // hi
-                    viewModel!!.messageInputText.value = ""
-                }
-
-                override fun onError(errMsg: String?, errCode: Int) {
-                }
-
-            })
-        }
-
-        // listen to typing events and connect to the view model
-        binding!!.messageInput.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {
-                if (s.toString().length > 0) viewModel!!.keystroke()
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-            }
-        })
-    }
+    // TODO
 
 }
