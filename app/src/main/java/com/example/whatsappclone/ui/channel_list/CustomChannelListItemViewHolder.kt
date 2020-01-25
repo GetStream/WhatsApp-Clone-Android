@@ -13,13 +13,12 @@ class CustomChannelListItemViewHolder( v : View) : ChannelListItemViewHolder(v) 
 
     override fun configLastMessageDate(channelState: ChannelState) {
         val lastMessage = channelState.lastMessage
-        val tv_date = itemView.findViewById(R.id.tv_date) as TextView
+        val tvDate = itemView.findViewById(R.id.tv_date) as TextView
         if (lastMessage == null) {
-            tv_date.text = ""
+            tvDate.text = ""
             return
         }
-        if (lastMessage.isToday) tv_date.text = lastMessage.time else tv_date.text =
+        if (lastMessage.isToday) tvDate.text = lastMessage.time else tvDate.text =
             dateFormat.format(lastMessage.createdAt)
     }
-
 }
