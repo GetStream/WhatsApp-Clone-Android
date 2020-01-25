@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.whatsappclone.R
+import com.example.whatsappclone.ui.EmptyFragment
 import com.example.whatsappclone.ui.channel_list.ChannelListFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-private const val EMPTY_TITLE = "empty_title"
-private val TAB_TITLES = mapOf( 1 to "chats", 2 to "status", 3 to "calls")
+const val EMPTY_TITLE = "empty_title"
+val TAB_TITLES = mapOf( 1 to "chats", 2 to "status", 3 to "calls")
 
 
 class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
@@ -38,16 +39,6 @@ class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
 }
 
 
-class EmptyFragment : Fragment(R.layout.fragment_empty) {
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(EMPTY_TITLE) }?.apply {
-            val textView: TextView = view.findViewById(R.id.text1)
-            textView.text = TAB_TITLES.getOrDefault(getInt(EMPTY_TITLE)-1, "camera")
-        }
-    }
-}
-
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var viewPager: ViewPager2
 
@@ -66,7 +57,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val activity : AppCompatActivity = activity as AppCompatActivity
         val view = view
-        
+
         val toolbar: Toolbar = view!!.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
 

@@ -33,7 +33,7 @@ class MessageInputView: ConstraintLayout
     val TAG =
         MessageInputView::class.java.simpleName
 
-    private var binding: ViewMessageInputBinding? = null
+    private lateinit var binding: ViewMessageInputBinding
 
     protected var viewModel: ChannelViewModel? = null
 
@@ -55,22 +55,19 @@ class MessageInputView: ConstraintLayout
         binding = ViewMessageInputBinding.inflate(inflater, this, true)
     }
 
-    fun getMessageText(): String? {
-        return binding!!.messageInput.text.toString()
-    }
 
     fun setViewModel(
         vmodel: ChannelViewModel,
         lifecycleOwner: LifecycleOwner?
     ) {
         viewModel = vmodel
-        binding!!.lifecycleOwner = lifecycleOwner
-        binding!!.viewModel = viewModel
+        binding.lifecycleOwner = lifecycleOwner
+        binding.viewModel = viewModel
 
         // implement message sending
-        binding!!.voiceRecordingOrSend.setOnClickListener {
-            var message : Message = Message()
-            message.text = getMessageText()
+        binding.voiceRecordingOrSend.setOnClickListener {
+            val message : Message = Message()
+            message.text =  binding.messageInput.text.toString()
             viewModel!!.sendMessage(message, object: MessageCallback {
                 override fun onSuccess(response: MessageResponse?) {
                     // hi
@@ -84,7 +81,7 @@ class MessageInputView: ConstraintLayout
         }
 
         // listen to typing events and connect to the view model
-        binding!!.messageInput.addTextChangedListener(object : TextWatcher {
+        binding.messageInput.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
                 if (s.toString().length > 0) viewModel!!.keystroke()

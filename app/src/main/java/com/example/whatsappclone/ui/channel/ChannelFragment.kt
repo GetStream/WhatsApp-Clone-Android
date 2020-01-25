@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,8 +24,6 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModelFactory
 class ChannelFragment : Fragment(R.layout.fragment_channel) {
 
     private var viewModel: ChannelViewModel? = null
-    private var binding: FragmentChannelBinding? = null
-
     private val args: ChannelFragmentArgs by navArgs()
 
     val TAG = ChannelFragment::class.java.simpleName
@@ -53,23 +52,18 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
         super.onActivityCreated(savedInstanceState)
 
         val activity : AppCompatActivity = activity as AppCompatActivity
-        val client = StreamChat.getInstance((activity as AppCompatActivity).application)
+        val client = StreamChat.getInstance(activity.application)
         val view = view
 
-
-
         // we're using data binding in this example
-        binding = DataBindingUtil.setContentView(activity, R.layout.fragment_channel)
+        val binding:FragmentChannelBinding = DataBindingUtil.setContentView(activity, R.layout.fragment_channel)
         // most the business logic of the chat is handled in the ChannelViewModel view model
-        // TODO: check if the owner should be fragment or class
-        binding!!.lifecycleOwner = this
+        binding.lifecycleOwner = this
 
-        activity.setSupportActionBar(binding!!.toolbar)
+        activity.setSupportActionBar(binding.toolbar)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
         activity.supportActionBar!!.setDisplayShowTitleEnabled(false)
-
-        // TODO: storing channel type and channel id should be handled by the viewmodel probably
 
         var channel = client.channel(args.channelType, args.channelId)
         viewModel = ViewModelProviders.of(
@@ -77,22 +71,16 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
             ChannelViewModelFactory(activity.application, channel)
         ).get(ChannelViewModel::class.java)
 
-
         // connect the view model
-        // TODO: Remove ugly !!
-        binding!!.viewModel = viewModel
-        binding!!.messageList.setViewModel(viewModel!!, this)
-        binding!!.messageInputView.setViewModel(viewModel!!, this)
+        binding.viewModel = viewModel
+        binding.messageList.setViewModel(viewModel!!, this)
+        binding.messageInputView.setViewModel(viewModel!!, this)
 
         val messageList : MessageListView = view!!.findViewById(R.id.messageList)
 
         val otherUsers: List<User> = channel.channelState.otherUsers
-        binding!!.avatarGroup.setChannelAndLastActiveUsers(channel, otherUsers, messageList.style)
-        binding!!.channelName.text = channel.name
-
-
+        binding.avatarGroup.setChannelAndLastActiveUsers(channel, otherUsers, messageList.style)
+        binding.channelName.text = channel.name
 
     }
-
-
 }

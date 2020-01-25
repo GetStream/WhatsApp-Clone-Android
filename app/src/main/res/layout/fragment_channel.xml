@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.getstream.sdk.chat.viewmodel.ChannelViewModel" />
@@ -61,10 +60,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         </androidx.appcompat.widget.Toolbar>
-
 
         <com.getstream.sdk.chat.view.MessageListView
             android:id="@+id/messageList"
@@ -114,7 +110,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
