@@ -14,6 +14,8 @@
             android:id="@+id/action_homeFragment_to_channelFragment"
             app:enterAnim="@anim/slide_up"
             app:popEnterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_up"
             app:destination="@id/channelFragment" />
     </fragment>
     <fragment
@@ -27,5 +29,8 @@
         <argument
             android:name="channel_id"
             app:argType="string" />
+        <action
+            android:id="@+id/channelToHome"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

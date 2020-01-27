@@ -42,7 +42,7 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId === android.R.id.home) {
             Log.i(TAG, "Trying to press that freakign back button")
-            findNavController().popBackStack(R.id.homeFragment, false)
+            findNavController().navigateUp()
             return true
         }
         return false

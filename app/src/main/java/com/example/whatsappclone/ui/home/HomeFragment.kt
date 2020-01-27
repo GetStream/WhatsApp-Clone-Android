@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.whatsappclone.R
@@ -20,7 +22,7 @@ const val EMPTY_TITLE = "empty_title"
 val TAB_TITLES = mapOf( 1 to "chats", 2 to "status", 3 to "calls")
 
 
-class TabsAdapter(fragment: HomeFragment) : FragmentStateAdapter(fragment) {
+class TabsAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int = 4
 
@@ -65,7 +67,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val tabLayout : TabLayout = view.findViewById(R.id.tabs)
         val chatTab: TabLayout.Tab = tabLayout.getTabAt(2)!!
         viewPager = view.findViewById(R.id.view_pager)
-        viewPager.adapter = TabsAdapter(this)
+        viewPager.adapter = TabsAdapter(childFragmentManager, lifecycle)
 
         // connect the tabs and view pager2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -75,6 +77,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
             viewPager.setCurrentItem(tab.position, true)
         }.attach()
+
+
 
         tabLayout.selectTab(chatTab)
 
