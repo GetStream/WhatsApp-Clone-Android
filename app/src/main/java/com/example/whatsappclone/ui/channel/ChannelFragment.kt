@@ -66,10 +66,8 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
         activity.supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         var channel = client.channel(args.channelType, args.channelId)
-        viewModel = ViewModelProviders.of(
-            this,
-            ChannelViewModelFactory(activity.application, channel)
-        ).get(ChannelViewModel::class.java)
+        val factory = ChannelViewModelFactory(activity.application, channel)
+        val viewModel: ChannelViewModel by viewModels { factory }
 
         // connect the view model
         binding.viewModel = viewModel

@@ -61,6 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val toolbar: Toolbar = view!!.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
 
+
         val tabLayout : TabLayout = view.findViewById(R.id.tabs)
         val chatTab: TabLayout.Tab = tabLayout.getTabAt(2)!!
         viewPager = view.findViewById(R.id.view_pager)
