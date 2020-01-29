@@ -2,14 +2,11 @@ package com.example.whatsappclone.ui.channel
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.whatsappclone.R
@@ -21,18 +18,29 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModel
 import com.getstream.sdk.chat.viewmodel.ChannelViewModelFactory
 
 
-class ChannelFragment : Fragment(R.layout.fragment_channel) {
+class ChannelFragment : Fragment() {
 
-    private var viewModel: ChannelViewModel? = null
     private val args: ChannelFragmentArgs by navArgs()
+    lateinit var binding: FragmentChannelBinding
 
-    val TAG = ChannelFragment::class.java.simpleName
 
+
+    // setup data binding
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // we're using data binding in this example
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_channel, container, false)
+        return binding.root
+    }
+
+    // enable the options menu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_channel, menu)
@@ -40,39 +48,35 @@ class ChannelFragment : Fragment(R.layout.fragment_channel) {
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId === android.R.id.home) {
-            Log.i(TAG, "Trying to press that freakign back button")
+        if (menuItem.itemId == android.R.id.home) {
             findNavController().navigateUp()
             return true
         }
         return false
     }
 
+    // setup the toolbar and viewmodel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val activity : AppCompatActivity = activity as AppCompatActivity
-        val client = StreamChat.getInstance(activity.application)
-        val view = view
 
-        // we're using data binding in this example
-        val binding:FragmentChannelBinding = DataBindingUtil.setContentView(activity, R.layout.fragment_channel)
-        // most the business logic of the chat is handled in the ChannelViewModel view model
-        binding.lifecycleOwner = this
-
+        // toolbar setup
         activity.setSupportActionBar(binding.toolbar)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
         activity.supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        var channel = client.channel(args.channelType, args.channelId)
+        val client = StreamChat.getInstance(activity.application)
+        val view = view
+        binding.lifecycleOwner = this
+        val channel = client.channel(args.channelType, args.channelId)
         val factory = ChannelViewModelFactory(activity.application, channel)
         val viewModel: ChannelViewModel by viewModels { factory }
 
         // connect the view model
         binding.viewModel = viewModel
-        binding.messageList.setViewModel(viewModel!!, this)
-        binding.messageInputView.setViewModel(viewModel!!, this)
+        binding.messageList.setViewModel(viewModel, this)
+        binding.messageInputView.setViewModel(viewModel, this)
 
         val messageList : MessageListView = view!!.findViewById(R.id.messageList)
 

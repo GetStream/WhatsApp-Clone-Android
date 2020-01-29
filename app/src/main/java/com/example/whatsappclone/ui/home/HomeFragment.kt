@@ -1,6 +1,7 @@
 package com.example.whatsappclone.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity

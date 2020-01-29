@@ -43,8 +43,8 @@ class ChannelListFragment : Fragment() {
         // we're using data binding in this example
         val binding = FragmentChannelListBinding.inflate(inflater, container, false)
 
-        // Specify the current fragment as the lifecycle owner
-        binding.lifecycleOwner = getActivity()!!
+        // Specify the current activity as the lifecycle owner
+        binding.lifecycleOwner = this
 
         // most the business logic for chat is handled in the ChannelListViewModel view model
         val viewModel: ChannelListViewModel by viewModels()
@@ -62,7 +62,7 @@ class ChannelListFragment : Fragment() {
         val nController = findNavController()
         binding.channelList.setOnChannelClickListener { channel ->
             nController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToChannelFragment(channel.type, channel.id)
+                HomeFragmentDirections.navHomeToChannel(channel.type, channel.id)
             )
         }
 
