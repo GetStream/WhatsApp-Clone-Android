@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/nav_home"
         android:name="com.example.whatsappclone.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_channelFragment"
+            android:id="@+id/nav_home_to_channel"
+            app:destination="@id/nav_channel"
             app:enterAnim="@anim/slide_up"
-            app:popEnterAnim="@anim/slide_up"
-            app:destination="@id/channelFragment" />
+            app:exitAnim="@anim/slide_down" />
     </fragment>
     <fragment
-        android:id="@+id/channelFragment"
+        android:id="@+id/nav_channel"
         android:name="com.example.whatsappclone.ui.channel.ChannelFragment"
         android:label="fragment_channel"
         tools:layout="@layout/fragment_channel" >
