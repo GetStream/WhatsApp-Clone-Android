@@ -1,9 +1,7 @@
 package com.example.whatsappclone.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.drawable.DrawableCompat
@@ -81,7 +79,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tabLayout.selectTab(chatTab)
 
         // handle tint for the camera icon
-        val colors = resources.getColorStateList(R.color.tab_icon, activity!!.theme)
+        val colors = resources.getColorStateList(R.color.tab_icon, activity.theme)
 
         for (i in 0 until tabLayout.tabCount) {
             val tab: TabLayout.Tab = tabLayout.getTabAt(i)!!
