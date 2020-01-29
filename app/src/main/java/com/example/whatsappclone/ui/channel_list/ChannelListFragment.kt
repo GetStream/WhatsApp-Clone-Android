@@ -59,9 +59,8 @@ class ChannelListFragment : Fragment() {
         viewModel.setChannelFilter(filter)
 
         // click handlers for clicking a user avatar or channel
-        val nController = findNavController()
         binding.channelList.setOnChannelClickListener { channel ->
-            nController.navigate(
+            findNavController().navigate(
                 HomeFragmentDirections.navHomeToChannel(channel.type, channel.id)
             )
         }

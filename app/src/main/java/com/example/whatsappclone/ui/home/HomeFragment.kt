@@ -78,9 +78,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
             viewPager.setCurrentItem(tab.position, true)
         }.attach()
-
-
-
         tabLayout.selectTab(chatTab)
 
         // handle tint for the camera icon

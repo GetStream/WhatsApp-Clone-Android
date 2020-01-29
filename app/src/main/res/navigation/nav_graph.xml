@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/nav_home_to_channel"
-            app:destination="@id/nav_channel" />
+            app:destination="@id/nav_channel"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down" />
     </fragment>
     <fragment
         android:id="@+id/nav_channel"

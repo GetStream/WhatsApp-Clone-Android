@@ -1,7 +1,6 @@
 package com.example.whatsappclone.ui.channel
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -22,8 +21,6 @@ class ChannelFragment : Fragment() {
 
     private val args: ChannelFragmentArgs by navArgs()
     lateinit var binding: FragmentChannelBinding
-
-
 
     // setup data binding
     override fun onCreateView(

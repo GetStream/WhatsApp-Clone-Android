@@ -30,13 +30,7 @@ import com.getstream.sdk.chat.viewmodel.ChannelViewModel
  */
 class MessageInputView: ConstraintLayout
 {
-    val TAG =
-        MessageInputView::class.java.simpleName
-
     private lateinit var binding: ViewMessageInputBinding
-
-    protected var viewModel: ChannelViewModel? = null
-
 
     constructor(context: Context) : super(context){
         init(context)
@@ -55,12 +49,10 @@ class MessageInputView: ConstraintLayout
         binding = ViewMessageInputBinding.inflate(inflater, this, true)
     }
 
-
     fun setViewModel(
-        vmodel: ChannelViewModel,
+        viewModel: ChannelViewModel,
         lifecycleOwner: LifecycleOwner?
     ) {
-        viewModel = vmodel
         binding.lifecycleOwner = lifecycleOwner
         binding.viewModel = viewModel
 
@@ -68,10 +60,10 @@ class MessageInputView: ConstraintLayout
         binding.voiceRecordingOrSend.setOnClickListener {
             val message : Message = Message()
             message.text =  binding.messageInput.text.toString()
-            viewModel!!.sendMessage(message, object: MessageCallback {
+            viewModel.sendMessage(message, object: MessageCallback {
                 override fun onSuccess(response: MessageResponse?) {
                     // hi
-                    viewModel!!.messageInputText.value = ""
+                    viewModel.messageInputText.value = ""
                 }
 
                 override fun onError(errMsg: String?, errCode: Int) {
@@ -84,7 +76,7 @@ class MessageInputView: ConstraintLayout
         binding.messageInput.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
-                if (s.toString().length > 0) viewModel!!.keystroke()
+                if (s.toString().isNotEmpty()) viewModel.keystroke()
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int,
