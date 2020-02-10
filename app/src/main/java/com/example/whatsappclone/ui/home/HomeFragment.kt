@@ -57,15 +57,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onActivityCreated(savedInstanceState)
 
         val activity : AppCompatActivity = activity as AppCompatActivity
-        val view = view
+        val fragmentView = requireNotNull(view) {"View should not be null when calling onActivityCreated"}
 
-        val toolbar: Toolbar = view!!.findViewById(R.id.toolbar)
+        val toolbar: Toolbar = fragmentView.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
 
-
-        val tabLayout : TabLayout = view.findViewById(R.id.tabs)
+        val tabLayout : TabLayout = fragmentView.findViewById(R.id.tabs)
         val chatTab: TabLayout.Tab = tabLayout.getTabAt(2)!!
-        viewPager = view.findViewById(R.id.view_pager)
+        viewPager = fragmentView.findViewById(R.id.view_pager)
         viewPager.adapter = TabsAdapter(childFragmentManager, lifecycle)
 
         // connect the tabs and view pager2
