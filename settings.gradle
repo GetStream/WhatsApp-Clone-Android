@@ -1,6 +1,6 @@
 include ':app'
 rootProject.name='WhatsAppClone'
 
-include ':chat'
+//include ':chat'
 
-project(":chat").projectDir=new File("/Users/thierry/workspace/android2/library")
+//project(":chat").projectDir=new File("/Users/thierry/workspace/android2/library")
