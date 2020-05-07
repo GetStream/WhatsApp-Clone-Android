@@ -70,22 +70,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             if (position == INDEX_OF_CAMERA) {
                 tab.setIcon(R.drawable.ic_camera_alt_black_24dp)
+                val colors = ResourcesCompat.getColorStateList(resources, R.color.tab_icon, activity.theme)
+                tab.icon?.apply { DrawableCompat.setTintList(DrawableCompat.wrap(this), colors) }
             } else {
                 tab.text = TAB_TITLES[position]
             }
             viewPager.setCurrentItem(tab.position, true)
         }.attach()
         tabLayout.getTabAt(INDEX_OF_CHATS)?.let { tabLayout.selectTab(it) }
-        // handle tint for the camera icon
-        val colors = resources.getColorStateList(R.color.tab_icon, activity.theme)
-
-        for (i in 0 until tabLayout.tabCount) {
-            val tab: TabLayout.Tab = tabLayout.getTabAt(i)!!
-            var icon = tab.icon
-            if (icon != null) {
-                icon = DrawableCompat.wrap(icon)
-                DrawableCompat.setTintList(icon, colors)
-            }
-        }
     }
 }
