@@ -1,6 +1,5 @@
 package com.example.whatsappclone.ui.channel_list
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,19 +25,15 @@ class ChannelListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val configuration = StreamChat.Config(activity!!.applicationContext, API_KEY)
-        StreamChat.init(configuration)
+        StreamChat.init(StreamChat.Config(inflater.context.applicationContext, API_KEY))
 
-        val client = StreamChat.getInstance(activity!!.application)
+        val client = StreamChat.getInstance(inflater.context.applicationContext)
         val extraData = HashMap<String, Any>()
         extraData["name"] = "Paranoid Android"
         extraData["image"] = "https://bit.ly/2TIt8NR"
-        val currentUser = User(USER_ID, extraData)
 
         // User token is typically provided by your server when the user authenticates
-        client.setUser(
-            currentUser,
-            USER_TOKEN)
+        client.setUser(User(USER_ID, extraData), USER_TOKEN)
 
         // we're using data binding in this example
         val binding = FragmentChannelListBinding.inflate(inflater, container, false)

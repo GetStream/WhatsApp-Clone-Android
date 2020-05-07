@@ -1,7 +1,12 @@
 package com.example.whatsappclone.ui.channel
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,7 +20,6 @@ import com.getstream.sdk.chat.rest.User
 import com.getstream.sdk.chat.view.MessageListView
 import com.getstream.sdk.chat.viewmodel.ChannelViewModel
 import com.getstream.sdk.chat.viewmodel.ChannelViewModelFactory
-
 
 class ChannelFragment : Fragment() {
 
@@ -59,12 +63,13 @@ class ChannelFragment : Fragment() {
 
         // toolbar setup
         activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
-        activity.supportActionBar!!.setDisplayShowTitleEnabled(false)
+        activity.supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            setDisplayShowTitleEnabled(false)
+        }
 
         val client = StreamChat.getInstance(activity.application)
-        val view = view
         binding.lifecycleOwner = this
         val channel = client.channel(args.channelType, args.channelId)
         val factory = ChannelViewModelFactory(activity.application, channel)
@@ -75,10 +80,11 @@ class ChannelFragment : Fragment() {
         binding.messageList.setViewModel(viewModel, this)
         binding.messageInputView.setViewModel(viewModel, this)
 
-        val messageList : MessageListView = view!!.findViewById(R.id.messageList)
+        view?.findViewById<MessageListView>(R.id.messageList)?.let {
+            val otherUsers: List<User> = channel.channelState.otherUsers
+            binding.avatarGroup.setChannelAndLastActiveUsers(channel, otherUsers, it.style)
+        }
 
-        val otherUsers: List<User> = channel.channelState.otherUsers
-        binding.avatarGroup.setChannelAndLastActiveUsers(channel, otherUsers, messageList.style)
         binding.channelName.text = channel.name
 
     }
