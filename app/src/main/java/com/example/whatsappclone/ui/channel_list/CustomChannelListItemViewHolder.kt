@@ -6,19 +6,19 @@ import com.getstream.sdk.chat.R
 import com.getstream.sdk.chat.adapter.ChannelListItemViewHolder
 import com.getstream.sdk.chat.rest.response.ChannelState
 import java.text.SimpleDateFormat
+import java.util.Locale
 
-class CustomChannelListItemViewHolder( v : View) : ChannelListItemViewHolder(v) {
+class CustomChannelListItemViewHolder(v: View) : ChannelListItemViewHolder(v) {
 
-    val dateFormat = SimpleDateFormat("MM/dd/YY")
+    private val dateFormat = SimpleDateFormat("MM/dd/yy", Locale.getDefault())
+    private val tvDate: TextView by lazy { itemView.findViewById<TextView>(R.id.tv_date) }
 
     override fun configLastMessageDate(channelState: ChannelState) {
         val lastMessage = channelState.lastMessage
-        val tvDate = itemView.findViewById(R.id.tv_date) as TextView
-        if (lastMessage == null) {
-            tvDate.text = ""
-            return
+        tvDate.text = when {
+            lastMessage == null -> ""
+            lastMessage.isToday -> lastMessage.time
+            else -> dateFormat.format(lastMessage.createdAt)
         }
-        if (lastMessage.isToday) tvDate.text = lastMessage.time else tvDate.text =
-            dateFormat.format(lastMessage.createdAt)
     }
 }
