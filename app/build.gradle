@@ -11,7 +11,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.whatsappclone"
-        minSdkVersion 29
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

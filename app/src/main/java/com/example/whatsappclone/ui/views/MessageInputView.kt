@@ -44,7 +44,7 @@ class MessageInputView: ConstraintLayout
         init(context)
     }
 
-    fun init(context: Context) {
+    private fun init(context: Context) {
         val inflater = LayoutInflater.from(context)
         binding = ViewMessageInputBinding.inflate(inflater, this, true)
     }
