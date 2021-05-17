@@ -5,7 +5,7 @@ buildscript {
 
     ext {
         googleServiceVersion = '4.3.2'
-        gradleVersion = '3.5.2'
+        gradleVersion = '4.2.0'
         gradlePluginVersion = '2.1'
         jacocoVersion = '0.1.4'
         mannodermausVersion = '1.5.1.0'
@@ -18,8 +18,8 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0"
         def nav_version = "2.1.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         // NOTE: Do not place your application dependencies here; they belong
