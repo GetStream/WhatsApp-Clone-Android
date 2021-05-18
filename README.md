@@ -1,3 +1,6 @@
+# Important
+**This repository is now archived. You can find this sample and more in the [Android Samples repository](https://github.com/GetStream/Android-Samples) instead.**
+
 # WhatsApp-Clone-Android
 
 Source code for the tutorial: [How-to Build a Whatsapp Clone on Android with Kotlin - Part 1](https://getstream.io/blog/build-whatsapp-clone/)
